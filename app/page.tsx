@@ -727,7 +727,7 @@ export default function Home() {
                             <button
                               type="button"
                               onClick={() => addToCart(entry)}
-                              className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded bg-bone text-sm font-black uppercase text-charcoal transition hover:bg-white focus:outline-none focus:ring-2 focus:ring-bone focus:ring-offset-2 focus:ring-offset-card xl:min-h-10 xl:text-xs 2xl:min-h-11 2xl:text-sm"
+                              className="agregar-btn inline-flex min-h-11 w-full items-center justify-center gap-2 rounded bg-bone text-sm font-black uppercase text-charcoal transition hover:bg-white focus:outline-none focus:ring-2 focus:ring-bone focus:ring-offset-2 focus:ring-offset-card xl:min-h-10 xl:text-xs 2xl:min-h-11 2xl:text-sm"
                             >
                               <Plus aria-hidden className="h-4 w-4" />
                               Agregar
