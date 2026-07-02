@@ -1057,7 +1057,7 @@ function CartPanel({
           Tu pedido
         </h3>
         {isWhatsappPlaceholder && (
-          <span className="rounded bg-coalred px-2 py-1 text-[0.64rem] font-black uppercase tracking-[0.12em] text-bone">
+          <span className="whatsapp-pending-badge rounded bg-coalred px-2 py-1 text-[0.64rem] font-black uppercase tracking-[0.12em] text-bone">
             WhatsApp pendiente
           </span>
         )}
