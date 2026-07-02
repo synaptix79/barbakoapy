@@ -2,11 +2,30 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ── Theme variables ─────────────────────────────────────────── */
 :root {
   color-scheme: dark;
   background: #0d0b0a;
+  --color-pit:      13 11 10;
+  --color-charcoal: 26 21 18;
+  --color-card:     21 17 15;
+  --color-surface:  20 16 14;
+  --color-bone:     244 232 212;
+  --color-smoke:    184 174 163;
 }
 
+[data-theme="light"] {
+  color-scheme: light;
+  background: #f1ede6;
+  --color-pit:      241 237 230;
+  --color-charcoal: 244 232 212;
+  --color-card:     255 252 248;
+  --color-surface:  234 228 220;
+  --color-bone:     26 21 18;
+  --color-smoke:    107 95 84;
+}
+
+/* ── Base ────────────────────────────────────────────────────── */
 * {
   box-sizing: border-box;
 }
@@ -21,9 +40,16 @@ body {
   background:
     radial-gradient(circle at 18% 4%, rgba(181, 18, 27, 0.2), transparent 24rem),
     radial-gradient(circle at 88% 12%, rgba(194, 154, 84, 0.1), transparent 22rem),
-    #0d0b0a;
-  color: #f4e8d4;
+    rgb(var(--color-pit));
+  color: rgb(var(--color-bone));
   font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+}
+
+[data-theme="light"] body {
+  background:
+    radial-gradient(circle at 18% 4%, rgba(181, 18, 27, 0.07), transparent 24rem),
+    radial-gradient(circle at 88% 12%, rgba(194, 154, 84, 0.05), transparent 22rem),
+    rgb(var(--color-pit));
 }
 
 button,
@@ -36,8 +62,9 @@ a {
   color: #fff7ed;
 }
 
+/* ── Textures & decorations ──────────────────────────────────── */
 .wood-texture {
-  background-color: #18120f;
+  background-color: rgb(var(--color-surface));
   background-image:
     linear-gradient(90deg, rgba(244, 232, 212, 0.035) 1px, transparent 1px),
     repeating-linear-gradient(
@@ -48,6 +75,18 @@ a {
       transparent 18px
     );
   background-size: 54px 100%, 100% 36px;
+}
+
+[data-theme="light"] .wood-texture {
+  background-image:
+    linear-gradient(90deg, rgba(26, 21, 18, 0.04) 1px, transparent 1px),
+    repeating-linear-gradient(
+      0deg,
+      rgba(194, 154, 84, 0.06) 0,
+      rgba(194, 154, 84, 0.06) 1px,
+      transparent 1px,
+      transparent 18px
+    );
 }
 
 .smoke-ring {
@@ -66,6 +105,13 @@ a {
   content: "";
 }
 
+[data-theme="light"] .smoke-ring::before {
+  background:
+    radial-gradient(circle at 18% 15%, rgba(26, 21, 18, 0.05), transparent 12rem),
+    radial-gradient(circle at 80% 10%, rgba(181, 18, 27, 0.12), transparent 14rem),
+    rgba(234, 228, 220, 0.9);
+}
+
 .hero-shell {
   background-image:
     linear-gradient(135deg, rgba(13, 11, 10, 0.96), rgba(26, 21, 18, 0.9)),
@@ -80,6 +126,20 @@ a {
     );
   background-position: center;
   background-size: cover;
+}
+
+[data-theme="light"] .hero-shell {
+  background-image:
+    linear-gradient(135deg, rgba(241, 237, 230, 0.97), rgba(234, 228, 220, 0.94)),
+    radial-gradient(circle at 22% 58%, rgba(181, 18, 27, 0.1), transparent 22rem),
+    radial-gradient(circle at 82% 30%, rgba(26, 21, 18, 0.04), transparent 20rem),
+    repeating-linear-gradient(
+      0deg,
+      rgba(26, 21, 18, 0.03) 0,
+      rgba(26, 21, 18, 0.03) 1px,
+      transparent 1px,
+      transparent 24px
+    );
 }
 
 .text-balance {

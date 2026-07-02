@@ -9,14 +9,16 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        charcoal: "#1A1512",
-        pit: "#0D0B0A",
-        smoke: "#B8AEA3",
-        bone: "#F4E8D4",
-        ember: "#B5121B",
-        coalred: "#6F1018",
-        brass: "#C29A54",
-        kurupay: "#54724A"
+        charcoal: "rgb(var(--color-charcoal) / <alpha-value>)",
+        pit:      "rgb(var(--color-pit)      / <alpha-value>)",
+        card:     "rgb(var(--color-card)     / <alpha-value>)",
+        surface:  "rgb(var(--color-surface)  / <alpha-value>)",
+        smoke:    "rgb(var(--color-smoke)    / <alpha-value>)",
+        bone:     "rgb(var(--color-bone)     / <alpha-value>)",
+        ember:    "#B5121B",
+        coalred:  "#6F1018",
+        brass:    "#C29A54",
+        kurupay:  "#54724A"
       },
       fontFamily: {
         display: ["Georgia", "Cambria", "Times New Roman", "serif"],

@@ -17,7 +17,9 @@ import {
   ShoppingBag,
   Truck,
   Users,
-  X
+  X,
+  Sun,
+  Moon
 } from "lucide-react";
 import {
   useEffect,
@@ -181,6 +183,7 @@ export default function Home() {
   const [cart, setCart] = useState<Record<string, CartEntry>>({});
   const [cartOpen, setCartOpen] = useState(false);
   const [isHappyHour, setIsHappyHour] = useState(false);
+  const [theme, setTheme] = useState<"dark" | "light">("dark");
   const categoryScrollerRef = useRef<HTMLDivElement>(null);
   const categoryDragRef = useRef({
     isDragging: false,
@@ -195,6 +198,16 @@ export default function Home() {
     const interval = window.setInterval(updateHappyHour, 60_000);
     return () => window.clearInterval(interval);
   }, []);
+
+  useEffect(() => {
+    const saved = localStorage.getItem("barbakoa-theme") as "dark" | "light" | null;
+    if (saved) setTheme(saved);
+  }, []);
+
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+    localStorage.setItem("barbakoa-theme", theme);
+  }, [theme]);
 
   const categoryTabs = [allCategory, ...menuCategories];
   const activeCategoryData = menuCategories.find(
@@ -389,7 +402,7 @@ export default function Home() {
 
   return (
     <main className="min-h-screen overflow-hidden bg-pit pb-24 text-bone md:pb-0">
-      <Header onOrderClick={openWhatsApp} />
+      <Header onOrderClick={openWhatsApp} theme={theme} onToggleTheme={() => setTheme(t => t === "dark" ? "light" : "dark")} />
 
       <section className="hero-shell relative isolate min-h-[78svh] border-b border-bone/10 px-4 pt-24 sm:px-6 lg:px-8">
         <div className="mx-auto grid min-h-[calc(78svh-6rem)] w-full max-w-[92rem] items-center gap-10 pb-12 pt-10 lg:grid-cols-[1fr_0.72fr]">
@@ -587,7 +600,7 @@ export default function Home() {
                   return (
                     <article
                       key={`${category.id}-${item.id}`}
-                      className="flex min-h-[22rem] flex-col rounded border border-bone/12 bg-[#15110f] p-4 shadow-[0_18px_50px_rgba(0,0,0,0.24)] transition hover:border-ember/45 xl:min-h-[19.5rem] xl:p-3 2xl:min-h-[20.5rem] 2xl:p-4"
+                      className="flex min-h-[22rem] flex-col rounded border border-bone/12 bg-card p-4 shadow-[0_18px_50px_rgba(0,0,0,0.24)] transition hover:border-ember/45 xl:min-h-[19.5rem] xl:p-3 2xl:min-h-[20.5rem] 2xl:p-4"
                     >
                       <div className="mb-4 flex h-12 w-12 items-center justify-center rounded border border-ember/35 bg-ember/12 text-ember xl:mb-3 xl:h-10 xl:w-10 2xl:h-12 2xl:w-12">
                         <Beef aria-hidden className="h-6 w-6 xl:h-5 xl:w-5 2xl:h-6 2xl:w-6" />
@@ -654,7 +667,7 @@ export default function Home() {
                                   key={variant.id}
                                   type="button"
                                   onClick={() => selectVariant(item, variant.id)}
-                                  className={`flex min-h-10 items-center justify-between gap-3 rounded border px-3 text-left text-sm font-bold transition focus:outline-none focus:ring-2 focus:ring-ember focus:ring-offset-2 focus:ring-offset-[#15110f] xl:min-h-9 xl:px-2 xl:text-xs 2xl:min-h-10 2xl:px-3 2xl:text-sm ${
+                                  className={`flex min-h-10 items-center justify-between gap-3 rounded border px-3 text-left text-sm font-bold transition focus:outline-none focus:ring-2 focus:ring-ember focus:ring-offset-2 focus:ring-offset-card xl:min-h-9 xl:px-2 xl:text-xs 2xl:min-h-10 2xl:px-3 2xl:text-sm ${
                                     selected
                                       ? "border-ember bg-ember/16 text-bone"
                                       : "border-bone/12 bg-pit/45 text-bone/70 hover:border-bone/30"
@@ -714,7 +727,7 @@ export default function Home() {
                             <button
                               type="button"
                               onClick={() => addToCart(entry)}
-                              className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded bg-bone text-sm font-black uppercase text-charcoal transition hover:bg-white focus:outline-none focus:ring-2 focus:ring-bone focus:ring-offset-2 focus:ring-offset-[#15110f] xl:min-h-10 xl:text-xs 2xl:min-h-11 2xl:text-sm"
+                              className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded bg-bone text-sm font-black uppercase text-charcoal transition hover:bg-white focus:outline-none focus:ring-2 focus:ring-bone focus:ring-offset-2 focus:ring-offset-card xl:min-h-10 xl:text-xs 2xl:min-h-11 2xl:text-sm"
                             >
                               <Plus aria-hidden className="h-4 w-4" />
                               Agregar
@@ -762,7 +775,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="border-y border-bone/10 bg-[#14100e] px-4 py-16 sm:px-6 lg:px-8">
+      <section className="border-y border-bone/10 bg-surface px-4 py-16 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-[92rem]">
           <p className="mb-3 text-sm font-bold uppercase tracking-[0.24em] text-brass">
             Cómo pedís
@@ -972,7 +985,11 @@ function ResponsiveLogo({
   );
 }
 
-function Header({ onOrderClick }: { onOrderClick: () => void }) {
+function Header({ onOrderClick, theme, onToggleTheme }: {
+  onOrderClick: () => void;
+  theme: "dark" | "light";
+  onToggleTheme: () => void;
+}) {
   return (
     <header className="fixed inset-x-0 top-0 z-40 border-b border-bone/10 bg-pit/82 px-4 backdrop-blur-xl sm:px-6 lg:px-8">
       <div className="mx-auto flex h-20 max-w-[92rem] items-center justify-between gap-4">
@@ -999,14 +1016,24 @@ function Header({ onOrderClick }: { onOrderClick: () => void }) {
             Contacto
           </a>
         </nav>
-        <button
-          type="button"
-          onClick={onOrderClick}
-          className="inline-flex min-h-11 shrink-0 items-center justify-center gap-2 rounded bg-ember px-4 text-sm font-black uppercase text-white transition hover:bg-[#D21F2B] focus:outline-none focus:ring-2 focus:ring-ember focus:ring-offset-2 focus:ring-offset-pit"
-        >
-          <MessageCircle aria-hidden className="h-5 w-5" />
-          <span className="hidden sm:inline">WhatsApp</span>
-        </button>
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            onClick={onToggleTheme}
+            className="grid h-9 w-9 place-items-center rounded border border-bone/20 bg-bone/8 text-bone/70 transition hover:bg-bone/15 hover:text-bone focus:outline-none focus:ring-2 focus:ring-ember focus:ring-offset-2 focus:ring-offset-pit"
+            aria-label={theme === "dark" ? "Activar modo claro" : "Activar modo oscuro"}
+          >
+            {theme === "dark" ? <Sun aria-hidden className="h-4 w-4" /> : <Moon aria-hidden className="h-4 w-4" />}
+          </button>
+          <button
+            type="button"
+            onClick={onOrderClick}
+            className="inline-flex min-h-11 shrink-0 items-center justify-center gap-2 rounded bg-ember px-4 text-sm font-black uppercase text-white transition hover:bg-[#D21F2B] focus:outline-none focus:ring-2 focus:ring-ember focus:ring-offset-2 focus:ring-offset-pit"
+          >
+            <MessageCircle aria-hidden className="h-5 w-5" />
+            <span className="hidden sm:inline">WhatsApp</span>
+          </button>
+        </div>
       </div>
     </header>
   );
@@ -1024,7 +1051,7 @@ function CartPanel({
   onSend: () => void;
 }) {
   return (
-    <div className="sticky top-28 rounded border border-bone/12 bg-[#15110f] p-5 shadow-[0_18px_50px_rgba(0,0,0,0.28)]">
+    <div className="sticky top-28 rounded border border-bone/12 bg-card p-5 shadow-[0_18px_50px_rgba(0,0,0,0.28)]">
       <div className="mb-4 flex items-center justify-between gap-3">
         <h3 className="font-display text-2xl font-black uppercase text-bone">
           Tu pedido
@@ -1044,7 +1071,7 @@ function CartPanel({
         <button
           type="button"
           onClick={onSend}
-          className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded bg-ember px-4 font-black uppercase text-white transition hover:bg-[#D21F2B] focus:outline-none focus:ring-2 focus:ring-ember focus:ring-offset-2 focus:ring-offset-[#15110f]"
+          className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded bg-ember px-4 font-black uppercase text-white transition hover:bg-[#D21F2B] focus:outline-none focus:ring-2 focus:ring-ember focus:ring-offset-2 focus:ring-offset-card"
         >
           <Send aria-hidden className="h-5 w-5" />
           Enviar por WhatsApp
@@ -1185,7 +1212,7 @@ function CartDrawer({
 }) {
   return (
     <div className="fixed inset-0 z-50 bg-black/70 p-4 backdrop-blur-sm xl:hidden" role="dialog" aria-modal="true">
-      <div className="ml-auto flex h-full max-w-md flex-col rounded border border-bone/12 bg-[#15110f] p-5 shadow-ember">
+      <div className="ml-auto flex h-full max-w-md flex-col rounded border border-bone/12 bg-card p-5 shadow-ember">
         <div className="mb-5 flex items-center justify-between gap-4">
           <div>
             <h3 className="font-display text-3xl font-black uppercase text-bone">
@@ -1219,7 +1246,7 @@ function CartDrawer({
           <button
             type="button"
             onClick={onSend}
-            className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded bg-ember px-4 font-black uppercase text-white transition hover:bg-[#D21F2B] focus:outline-none focus:ring-2 focus:ring-ember focus:ring-offset-2 focus:ring-offset-[#15110f]"
+            className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded bg-ember px-4 font-black uppercase text-white transition hover:bg-[#D21F2B] focus:outline-none focus:ring-2 focus:ring-ember focus:ring-offset-2 focus:ring-offset-card"
           >
             <Send aria-hidden className="h-5 w-5" />
             Enviar pedido por WhatsApp
