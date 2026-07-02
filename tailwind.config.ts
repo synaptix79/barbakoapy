@@ -17,7 +17,7 @@ const config: Config = {
         bone:     "rgb(var(--color-bone)     / <alpha-value>)",
         ember:    "#B5121B",
         coalred:  "#6F1018",
-        brass:    "#C29A54",
+        brass:    "rgb(var(--color-brass)    / <alpha-value>)",
         kurupay:  "#54724A"
       },
       fontFamily: {

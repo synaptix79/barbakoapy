@@ -12,17 +12,19 @@
   --color-surface:  20 16 14;
   --color-bone:     244 232 212;
   --color-smoke:    184 174 163;
+  --color-brass:    194 154 84;
 }
 
 [data-theme="light"] {
   color-scheme: light;
-  background: #f1ede6;
-  --color-pit:      241 237 230;
-  --color-charcoal: 244 232 212;
-  --color-card:     255 252 248;
-  --color-surface:  234 228 220;
-  --color-bone:     26 21 18;
-  --color-smoke:    107 95 84;
+  background: #f5f1ea;
+  --color-pit:      245 241 234;
+  --color-charcoal: 245 241 234;
+  --color-card:     255 253 250;
+  --color-surface:  231 225 216;
+  --color-bone:     28 22 18;
+  --color-smoke:    82 70 60;
+  --color-brass:    152 98 14;
 }
 
 /* ── Base ────────────────────────────────────────────────────── */
@@ -47,9 +49,22 @@ body {
 
 [data-theme="light"] body {
   background:
-    radial-gradient(circle at 18% 4%, rgba(181, 18, 27, 0.07), transparent 24rem),
-    radial-gradient(circle at 88% 12%, rgba(194, 154, 84, 0.05), transparent 22rem),
+    radial-gradient(circle at 18% 4%, rgba(181, 18, 27, 0.09), transparent 28rem),
+    radial-gradient(circle at 88% 12%, rgba(194, 154, 84, 0.07), transparent 26rem),
     rgb(var(--color-pit));
+}
+
+[data-theme="light"] article {
+  box-shadow: 0 1px 3px rgba(28, 22, 18, 0.06), 0 4px 18px rgba(28, 22, 18, 0.06) !important;
+  border-color: rgba(28, 22, 18, 0.11) !important;
+}
+
+[data-theme="light"] article:hover {
+  border-color: rgba(181, 18, 27, 0.4) !important;
+}
+
+[data-theme="light"] .shadow-ember {
+  box-shadow: 0 6px 24px rgba(181, 18, 27, 0.18);
 }
 
 button,
